@@ -19,7 +19,7 @@
 <!--            </intent-filter>-->
         </activity>
         <activity
-            android:name=".MyGameActivity"
+            android:name=".game.MyGameActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:exported="true">
             <intent-filter>
