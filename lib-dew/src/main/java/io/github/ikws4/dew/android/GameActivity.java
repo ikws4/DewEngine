@@ -29,7 +29,7 @@ public abstract class GameActivity extends Activity {
 
   private void setupWindow() {
     setContentView(R.layout.activity_game);
-    
+
     // landscape and sensor mode
     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
@@ -58,6 +58,12 @@ public abstract class GameActivity extends Activity {
     super.onResume();
     glSurfaceView.onResume();
     glRenderer.onResume();
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    glRenderer.onDestory();
   }
 
   static class GLRenderer implements GLSurfaceView.Renderer {
@@ -95,6 +101,10 @@ public abstract class GameActivity extends Activity {
     public void onResume() {
       game.resume();
       lastTime = System.nanoTime();
+    }
+
+    public void onDestory() {
+      game.dispose();
     }
   }
 }

@@ -1,13 +1,28 @@
 package io.github.ikws4.dew.android;
 
-public interface Game {
-  void setup();
+import java.lang.ref.WeakReference;
+import android.content.Context;
 
-  void loop(double dt);
+public abstract class Game {
+  private final WeakReference<Context> context;
   
-  default void resize(int width, int height) {}
+  public Game(Context context) {
+    this.context = new WeakReference<>(context);
+  }
+  
+  protected Context getContext() {
+    return context.get();
+  }
 
-  default void pause() {}
+  protected abstract void setup();
 
-  default void resume() {}
+  protected abstract void loop(double dt);
+
+  protected void resize(int width, int height) {}
+
+  protected void pause() {}
+
+  protected void resume() {}
+
+  protected void dispose() {}
 }
