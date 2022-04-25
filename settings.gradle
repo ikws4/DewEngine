@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Dew"
 include ':app'
-include ':dew'
+include ':lib-dew'
