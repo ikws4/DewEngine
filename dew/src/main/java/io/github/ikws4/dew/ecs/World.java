@@ -1,5 +1,7 @@
 package io.github.ikws4.dew.ecs;
 
+import android.app.Application;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -8,10 +10,15 @@ import java.util.Map;
 import java.util.Queue;
 
 public class World {
+  private Application context;
+
   private final List<System> startupSystems;
   private final List<System> systems;
   private final Command command;
   private final Query query;
+  private final Res res;
+
+  final Map<Class<?>, Object> resourceMap;
 
   final Map<Class<?>, Integer> componentIdMap;
 
@@ -22,11 +29,14 @@ public class World {
 
   private Stage stage;
 
-  public World() {
+  public World(Application context) {
     startupSystems = new ArrayList<>();
     systems = new ArrayList<>();
     command = new Command(this);
     query = new Query(this);
+    res = new Res(this);
+
+    resourceMap = new HashMap<>();
 
     componentIdMap = new HashMap<>();
     entities = new ArrayList<>();
@@ -79,14 +89,14 @@ public class World {
       case STARTUP:
         for (System system : startupSystems) {
           query.reset();
-          system.run(command, query);
+          system.run(context, command, query, res);
         }
         stage = Stage.RUNNING;
         break;
       case RUNNING:
         for (System system : systems) {
           query.reset();
-          system.run(command, query);
+          system.run(context, command, query, res);
         }
         break;
     }

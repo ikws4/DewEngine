@@ -7,6 +7,11 @@ public class Command {
     this.world = world;
   }
 
+  public Command insertResource(Object resource) {
+    world.resourceMap.put(resource.getClass(), resource);
+    return this;
+  }
+
   public Entity createEntity() {
     if (world.freeEntityPool.isEmpty()) {
       Entity entity = new Entity(world);
