@@ -8,7 +8,7 @@ public class Command {
   }
 
   public Command insertResource(Object resource) {
-    world.resourceMap.put(resource.getClass(), resource);
+    world.insertResource(resource);
     return this;
   }
 

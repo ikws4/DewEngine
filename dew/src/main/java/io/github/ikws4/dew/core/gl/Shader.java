@@ -1,4 +1,4 @@
-package io.github.ikws4.dew.android.gl;
+package io.github.ikws4.dew.core.gl;
 
 import static android.opengl.GLES30.*;
 import java.util.HashMap;
@@ -6,39 +6,30 @@ import java.util.Map;
 
 public class Shader {
   private final Map<String, Integer> uniforms;
-  private final int program;
+  private final int programId;
 
   public Shader(String vertexShader, String fragmentShader) {
     int vertexShaderId = compileShader(GL_VERTEX_SHADER, vertexShader);
     int fragmentShaderId = compileShader(GL_FRAGMENT_SHADER, fragmentShader);
 
-    program = glCreateProgram();
-    glAttachShader(program, vertexShaderId);
-    glAttachShader(program, fragmentShaderId);
-    glLinkProgram(program);
+    this.programId = glCreateProgram();
+    glAttachShader(programId, vertexShaderId);
+    glAttachShader(programId, fragmentShaderId);
+    glLinkProgram(programId);
 
     glDeleteShader(vertexShaderId);
     glDeleteShader(fragmentShaderId);
 
     int[] status = new int[1];
-    glGetProgramiv(program, GL_LINK_STATUS, status, 0);
+    glGetProgramiv(programId, GL_LINK_STATUS, status, 0);
 
     if (status[0] == 0) {
-      glDeleteProgram(program);
-      throw new RuntimeException("Failed to link program: " + glGetProgramInfoLog(program));
+      String error = glGetProgramInfoLog(programId);
+      glDeleteProgram(programId);
+      throw new RuntimeException("Failed to link program: " + error);
     }
-    
-    uniforms = new HashMap<>();
-    
-    int[] uniformCount = new int[1];
-    glGetProgramiv(program, GL_ACTIVE_UNIFORMS, uniformCount, 0);
-    for (int i = 0; i < uniformCount[0]; i++) {
-      int[] uniformSize = new int[1];
-      int[] uniformType = new int[1];
-      String uniformName = glGetActiveUniform(program, i, uniformSize, 0, uniformType, 0);
-      int uniformLocation = glGetUniformLocation(program, uniformName);
-      uniforms.put(uniformName, uniformLocation);
-    }
+
+    this.uniforms = new HashMap<>();
   }
 
   public void detach() {
@@ -46,7 +37,7 @@ public class Shader {
   }
 
   public void attach() {
-    glUseProgram(program);
+    glUseProgram(programId);
   }
 
   public void setUniform1i(String name, int value) {
@@ -64,15 +55,19 @@ public class Shader {
   public void setUniformArray1i(String name, int[] values) {
     glUniform1iv(getUniformLocation(name), values.length, values, 0);
   }
-  
+
   public void setUniformArray1f(String name, float[] values) {
     glUniform1fv(getUniformLocation(name), values.length, values, 0);
   }
 
-  private Integer getUniformLocation(String name) {
+  private int getUniformLocation(String name) {
     Integer location = uniforms.get(name);
     if (location == null) {
-      throw new RuntimeException("Uniform not found: " + name);
+      location = glGetUniformLocation(programId, name);
+      uniforms.put(name, location);
+      if (location == -1) {
+        throw new RuntimeException("Could not find uniform: " + name);
+      }
     }
     return location;
   }
@@ -86,8 +81,9 @@ public class Shader {
     glGetShaderiv(shaderId, GL_COMPILE_STATUS, status, 0);
 
     if (status[0] == GL_FALSE) {
+      String error = glGetShaderInfoLog(shaderId);
       glDeleteShader(shaderId);
-      throw new RuntimeException("Failed to compile shader: " + glGetShaderInfoLog(shaderId));
+      throw new RuntimeException("Failed to compile shader: " + error + "\n" + shaderCode);
     }
 
     return shaderId;
@@ -96,6 +92,6 @@ public class Shader {
   @Override
   protected void finalize() throws Throwable {
     super.finalize();
-    glDeleteProgram(program);
+    glDeleteProgram(programId);
   }
 }

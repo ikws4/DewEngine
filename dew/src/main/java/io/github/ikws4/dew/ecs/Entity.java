@@ -32,6 +32,13 @@ public class Entity {
     return this;
   }
 
+  public Entity insertBundle(Bundle bundle) {
+    for (Object component : bundle.unpack()) {
+      insert(component);
+    }
+    insert(bundle);
+    return this;
+  }
 
   public Entity remove(Class<?> componentClass) {
     componentMask.clear(world.componentIdMap.get(componentClass));

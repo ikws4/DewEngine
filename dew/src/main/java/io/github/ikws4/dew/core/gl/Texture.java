@@ -1,4 +1,4 @@
-package io.github.ikws4.dew.android.gl;
+package io.github.ikws4.dew.core.gl;
 
 import android.graphics.Bitmap;
 import android.opengl.GLUtils;
@@ -6,8 +6,8 @@ import static android.opengl.GLES30.*;
 
 public class Texture {
   private final int id;
-  private final int width;
-  private final int height;
+  public final int width;
+  public final int height;
 
   public Texture(Bitmap bitmap) {
     int[] textureIds = new int[1];
@@ -27,7 +27,7 @@ public class Texture {
 
     GLUtils.texImage2D(GL_TEXTURE_2D, 0, bitmap, GL_FALSE);
 
-    glGenerateMipmap(id);
+    glGenerateMipmap(GL_TEXTURE_2D);
   }
 
   public void bind() {
@@ -36,13 +36,5 @@ public class Texture {
 
   public void unbind() {
     glBindTexture(GL_TEXTURE_2D, 0);
-  }
-
-  public int getWidth() {
-    return width;
-  }
-
-  public int getHeight() {
-    return height;
   }
 }

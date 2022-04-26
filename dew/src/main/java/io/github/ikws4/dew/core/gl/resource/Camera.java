@@ -1,4 +1,4 @@
-package io.github.ikws4.dew.ecs.component;
+package io.github.ikws4.dew.core.gl.resource;
 
 import org.joml.Matrix4f;
 

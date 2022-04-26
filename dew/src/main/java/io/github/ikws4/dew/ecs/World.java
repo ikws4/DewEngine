@@ -1,7 +1,7 @@
 package io.github.ikws4.dew.ecs;
 
-import android.app.Application;
-
+import android.content.Context;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Queue;
 
 public class World {
-  private Application context;
+  private final WeakReference<Context> context;
 
   private final List<System> startupSystems;
   private final List<System> systems;
@@ -29,21 +29,32 @@ public class World {
 
   private Stage stage;
 
-  public World(Application context) {
-    startupSystems = new ArrayList<>();
-    systems = new ArrayList<>();
-    command = new Command(this);
-    query = new Query(this);
-    res = new Res(this);
+  public World(Context context) {
+    this.context = new WeakReference<>(context);
+    this.startupSystems = new ArrayList<>();
+    this.systems = new ArrayList<>();
+    this.command = new Command(this);
+    this.query = new Query(this);
+    this.res = new Res(this);
 
-    resourceMap = new HashMap<>();
+    this.resourceMap = new HashMap<>();
 
-    componentIdMap = new HashMap<>();
-    entities = new ArrayList<>();
-    freeEntityPool = new LinkedList<>();
-    componentPools = new ArrayList<>();
+    this.componentIdMap = new HashMap<>();
+    this.entities = new ArrayList<>();
+    this.freeEntityPool = new LinkedList<>();
+    this.componentPools = new ArrayList<>();
 
-    stage = Stage.STARTUP;
+    this.stage = Stage.STARTUP;
+  }
+  
+  public World insertResource(Object resource) {
+    resourceMap.put(resource.getClass(), resource);
+    return this;
+  }
+
+  public World addPlugin(Plugin plugin) {
+    plugin.build(this);
+    return this;
   }
 
   /**
@@ -89,14 +100,14 @@ public class World {
       case STARTUP:
         for (System system : startupSystems) {
           query.reset();
-          system.run(context, command, query, res);
+          system.run(context.get(), command, query, res);
         }
         stage = Stage.RUNNING;
         break;
       case RUNNING:
         for (System system : systems) {
           query.reset();
-          system.run(context, command, query, res);
+          system.run(context.get(), command, query, res);
         }
         break;
     }

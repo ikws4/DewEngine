@@ -2,10 +2,11 @@ package io.github.ikws4.example.game;
 
 import android.content.Context;
 
-import io.github.ikws4.dew.android.Game;
-import io.github.ikws4.dew.android.GameActivity;
+import io.github.ikws4.dew.core.Game;
+import io.github.ikws4.dew.core.GameActivity;
 import io.github.ikws4.dew.ecs.World;
-import io.github.ikws4.example.game.systems.GLRenderSystem;
+import io.github.ikws4.example.MyApplication;
+import io.github.ikws4.example.game.systems.StartupSystem;
 
 /**
  * Created by zhiping on 04/25/2022.
@@ -18,7 +19,6 @@ public class MyGameActivity extends GameActivity {
   }
 
   static class MyGame extends Game {
-    private World world;
 
     public MyGame(Context context) {
       super(context);
@@ -26,13 +26,9 @@ public class MyGameActivity extends GameActivity {
 
     @Override
     public void setup() {
-      world = new World()
-          .addSystem(new GLRenderSystem());
-    }
+      super.setup();
 
-    @Override
-    public void loop(double dt) {
-      world.run();
+      world.addStartupSystem(new StartupSystem());
     }
   }
 }
