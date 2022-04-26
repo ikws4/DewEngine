@@ -7,7 +7,7 @@ public class Command {
     this.world = world;
   }
 
-  Entity createEntity() {
+  public Entity createEntity() {
     if (world.freeEntityPool.isEmpty()) {
       Entity entity = new Entity(world);
       world.entities.add(entity);
@@ -19,7 +19,7 @@ public class Command {
     }
   }
 
-  void removeEntity(Entity entity) {
+  public void removeEntity(Entity entity) {
     entity.removed = true;
     entity.componentMask.clear();
     world.freeEntityPool.add(entity);
