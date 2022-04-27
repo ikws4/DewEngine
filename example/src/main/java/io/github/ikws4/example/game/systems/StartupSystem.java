@@ -9,7 +9,7 @@ import io.github.ikws4.dew.core.gl.component.Color;
 import io.github.ikws4.dew.core.gl.component.Sprite;
 import io.github.ikws4.dew.core.gl.component.Transform;
 import io.github.ikws4.dew.core.gl.component.bundle.SpriteBundle;
-import io.github.ikws4.dew.core.gl.resource.ViewPort;
+import io.github.ikws4.dew.core.resource.ViewPort;
 import io.github.ikws4.dew.core.util.AssetsManager;
 import io.github.ikws4.dew.ecs.Command;
 import io.github.ikws4.dew.ecs.Query;

@@ -2,9 +2,8 @@ package io.github.ikws4.dew.core;
 
 import android.content.Context;
 import io.github.ikws4.dew.core.gl.GLRendererPlugin;
-import io.github.ikws4.dew.core.gl.resource.ClearColor;
-import io.github.ikws4.dew.core.gl.resource.Time;
-import io.github.ikws4.dew.core.gl.resource.ViewPort;
+import io.github.ikws4.dew.core.resource.Time;
+import io.github.ikws4.dew.core.resource.ViewPort;
 import io.github.ikws4.dew.ecs.World;
 
 public abstract class Game {

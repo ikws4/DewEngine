@@ -3,8 +3,8 @@ package io.github.ikws4.example.game.systems;
 import android.content.Context;
 
 import io.github.ikws4.dew.core.gl.component.Transform;
-import io.github.ikws4.dew.core.gl.resource.Time;
-import io.github.ikws4.dew.core.gl.resource.ViewPort;
+import io.github.ikws4.dew.core.resource.Time;
+import io.github.ikws4.dew.core.resource.ViewPort;
 import io.github.ikws4.dew.ecs.Command;
 import io.github.ikws4.dew.ecs.Entity;
 import io.github.ikws4.dew.ecs.Query;

@@ -1,5 +1,6 @@
 package io.github.ikws4.dew.core.gl;
 
+import io.github.ikws4.dew.core.gl.resource.ClearColor;
 import io.github.ikws4.dew.core.gl.system.GLRenderSystem;
 import io.github.ikws4.dew.core.gl.system.GLStartupSystem;
 import io.github.ikws4.dew.ecs.Plugin;
@@ -9,7 +10,8 @@ public class GLRendererPlugin implements Plugin {
 
   @Override
   public void build(World world) {
-    world.addStartupSystem(new GLStartupSystem())
-      .addSystem(new GLRenderSystem());
+    world.insertResource(new ClearColor(0xFFFFFFFF))
+        .addStartupSystem(new GLStartupSystem())
+        .addSystem(new GLRenderSystem());
   }
 }

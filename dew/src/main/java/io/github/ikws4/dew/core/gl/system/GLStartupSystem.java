@@ -5,7 +5,7 @@ import io.github.ikws4.dew.core.gl.Renderer;
 import io.github.ikws4.dew.core.gl.Shader;
 import io.github.ikws4.dew.core.gl.resource.Camera;
 import io.github.ikws4.dew.core.gl.resource.ClearColor;
-import io.github.ikws4.dew.core.gl.resource.ViewPort;
+import io.github.ikws4.dew.core.resource.ViewPort;
 import io.github.ikws4.dew.core.util.AssetsManager;
 import io.github.ikws4.dew.ecs.Command;
 import io.github.ikws4.dew.ecs.Query;
@@ -22,11 +22,6 @@ public class GLStartupSystem implements System {
   public void run(Context context, Command command, Query query, Res res) {
     ViewPort viewPort = res.get(ViewPort.class);
     ClearColor clearColor = res.get(ClearColor.class);
-    
-    if (clearColor == null) {
-      clearColor = new ClearColor(0xFFFFFFFF);
-      command.insertResource(clearColor);
-    }
 
     Shader shader = new Shader(
         AssetsManager.getText(context, "vertex_shader.glsl"),
