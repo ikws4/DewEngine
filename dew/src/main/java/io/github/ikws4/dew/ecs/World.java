@@ -23,7 +23,6 @@ public class World {
   final Map<Class<?>, Integer> componentIdMap;
 
   final List<Entity> entities;
-  final List<EntityListner> entityListners;
   final Queue<Entity> freeEntityPool;
 
   final List<ComponentPool> componentPools;
@@ -42,16 +41,10 @@ public class World {
 
     this.componentIdMap = new HashMap<>();
     this.entities = new ArrayList<>();
-    this.entityListners = new ArrayList<>();
     this.freeEntityPool = new LinkedList<>();
     this.componentPools = new ArrayList<>();
 
     this.stage = Stage.STARTUP;
-  }
-
-  public World addEntityListner(EntityListner entityListner) {
-    this.entityListners.add(entityListner);
-    return this;
   }
   
   public World insertResource(Object resource) {

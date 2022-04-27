@@ -13,28 +13,20 @@ public class Command {
   }
 
   public Entity createEntity() {
-    Entity entity;
     if (world.freeEntityPool.isEmpty()) {
-      entity = new Entity(world);
+      Entity entity = new Entity(world);
       world.entities.add(entity);
+      return entity;
     } else {
-      entity = world.freeEntityPool.poll();
+      Entity entity = world.freeEntityPool.poll();
       entity.removed = false;
+      return entity;
     }
-
-    for (EntityListener l : world.entityListeners) {
-      l.onEntityCreated(entity);
-    }
-    return entity;
   }
 
   public void removeEntity(Entity entity) {
     entity.removed = true;
     entity.componentMask.clear();
     world.freeEntityPool.add(entity);
-
-    for (EntityListener l : world.entityListeners) {
-      l.onEntityRemoved(entity);
-    }
   }
 }
