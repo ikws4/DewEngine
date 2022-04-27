@@ -166,20 +166,22 @@ class SpriteRenderBatch implements RenderBatch {
      *   └────┘
      *   0    1
      */
+    int w = spriteBundle.sprite.texture.width / 2;
+    int h = spriteBundle.sprite.texture.height / 2;
     for (int i = 0; i < NUMBER_OF_VERTICES_PER_QUAD; i++) {
 
       if (i == 0) {
-        position.x = -0.5f;
-        position.y = -0.5f;
+        position.x = -w;
+        position.y = -h;
       } else if (i == 1) {
-        position.x = 0.5f;
-        position.y = -0.5f;
+        position.x = w;
+        position.y = -h;
       } else if (i == 2) {
-        position.x = 0.5f;
-        position.y = 0.5f;
+        position.x = w;
+        position.y = h;
       } else {
-        position.x = -0.5f;
-        position.y = 0.5f;
+        position.x = -w;
+        position.y = h; 
       }
 
       spriteBundle.transform.applyTo(position);

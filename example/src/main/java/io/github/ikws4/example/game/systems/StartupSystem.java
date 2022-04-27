@@ -22,20 +22,17 @@ import io.github.ikws4.dew.ecs.System;
 public class StartupSystem implements System {
   @Override
   public void run(Context context, Command command, Query query, Res res) {
-    Renderer renderer = res.get(Renderer.class);
-
     SpriteBundle player = new SpriteBundle(
         new Sprite(
             AssetsManager.getTexture(context, "head.png")
         ),
         new Color(0xFF8ED1DA),
         new Transform(
-            new Vector3f(0, 0, 0),
-            new Vector2f(200, 200),
+            new Vector3f(0),
+            new Vector2f(2),
             0f
         )
     );
-    renderer.add(player);
 
     command.createEntity().insert(player);
   }
