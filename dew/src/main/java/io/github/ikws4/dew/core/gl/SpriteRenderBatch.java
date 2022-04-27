@@ -249,6 +249,7 @@ class SpriteRenderBatch implements RenderBatch {
 
     glBindVertexArray(vaoId[0]);
 
+    // TODO: only reload vertices that have changed
     for (int i = 0; i < size; i++) {
       loadVertex(i);
     }
