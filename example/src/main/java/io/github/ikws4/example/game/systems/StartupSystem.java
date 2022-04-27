@@ -33,7 +33,6 @@ public class StartupSystem implements System {
             0f
         )
     );
-
     command.createEntity().insert(player);
   }
 }
