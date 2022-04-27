@@ -7,6 +7,10 @@ public class Sprite {
   public final Texture texture;
   public final Vector2f[] texCoords;
 
+  public Sprite() {
+    this(null);
+  }
+
   /**
    *   3    2
    *   ┌────┐

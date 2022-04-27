@@ -4,8 +4,7 @@ import android.content.Context;
 
 import io.github.ikws4.dew.core.Game;
 import io.github.ikws4.dew.core.GameActivity;
-import io.github.ikws4.dew.ecs.World;
-import io.github.ikws4.example.MyApplication;
+import io.github.ikws4.example.game.systems.PikachuMovementSystem;
 import io.github.ikws4.example.game.systems.StartupSystem;
 
 /**
@@ -27,8 +26,8 @@ public class MyGameActivity extends GameActivity {
     @Override
     public void setup() {
       super.setup();
-
-      world.addStartupSystem(new StartupSystem());
+      world.addStartupSystem(new StartupSystem())
+        .addSystem(new PikachuMovementSystem());
     }
   }
 }

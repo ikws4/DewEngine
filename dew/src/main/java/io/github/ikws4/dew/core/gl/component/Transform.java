@@ -1,20 +1,33 @@
 package io.github.ikws4.dew.core.gl.component;
 
 import org.joml.Matrix4f;
+import org.joml.Quaterniond;
+import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class Transform {
   private final Matrix4f transform;
 
+  public Vector3f position;
+  public Vector2f scale;
+  public float rotation;
+
   public Transform(Vector3f position, Vector2f scale, float rotation) {
-    transform = new Matrix4f();
-    transform.translate(position.x, position.y, 0)
-      .scale(scale.x, scale.y, 0)
-      .rotate(rotation * (float) Math.PI / 180, 0, 0, 1);
+    this.transform = new Matrix4f();
+    this.position = position;
+    this.scale = scale;
+    this.rotation = rotation;
   }
   
-  public void applyTo(Vector3f position) {
-    transform.transformPosition(position);
+  public Matrix4f getTransformMatrix() {
+    return transform.identity()
+            .translate(position)
+            .rotate(toRadian(rotation), 0, 0, 1)
+            .scale(scale.x, scale.y, 0);
+  }
+
+  private float toRadian(float degree) {
+    return degree * (float) Math.PI / 180;
   }
 }

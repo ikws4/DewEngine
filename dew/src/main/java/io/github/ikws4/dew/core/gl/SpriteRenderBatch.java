@@ -1,5 +1,8 @@
 package io.github.ikws4.dew.core.gl;
 
+import io.github.ikws4.dew.core.gl.component.Color;
+import io.github.ikws4.dew.core.gl.component.Sprite;
+import io.github.ikws4.dew.core.gl.component.Transform;
 import io.github.ikws4.dew.core.gl.component.bundle.SpriteBundle;
 import static android.opengl.GLES30.*;
 import java.nio.ByteBuffer;
@@ -7,6 +10,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -45,6 +49,7 @@ class SpriteRenderBatch implements RenderBatch {
 
   private final int[] textureSlots = new int[] {0, 1, 2, 3, 4, 5, 6, 7};
 
+  private final SpriteBundle[] spriteBundles;
   private final FloatBuffer verticesBuffer;
   private final List<Texture> textures;
 
@@ -57,6 +62,7 @@ class SpriteRenderBatch implements RenderBatch {
   }
 
   public SpriteRenderBatch(Shader shader, short capacity) {
+    this.spriteBundles = new SpriteBundle[capacity];
     this.textures = new ArrayList<>(textureSlots.length);
     this.verticesBuffer =
         ByteBuffer.allocateDirect(NUMBER_OF_VERTICES_PER_QUAD * SIZE_OF_FLOAT * capacity)
@@ -135,7 +141,7 @@ class SpriteRenderBatch implements RenderBatch {
     return buffer;
   }
 
-  private final float[] vertex = new float[NUMBER_OF_VERTICES_PER_QUAD * SIZE_OF_VERTEX];
+  private final float[] verticies = new float[NUMBER_OF_VERTICES_PER_QUAD * SIZE_OF_VERTEX / SIZE_OF_FLOAT];
   private final Vector3f position = new Vector3f();
 
   public boolean add(SpriteBundle spriteBundle) {
@@ -147,14 +153,27 @@ class SpriteRenderBatch implements RenderBatch {
       return false;
     }
 
-    int offset = size * NUMBER_OF_VERTICES_PER_QUAD * (SIZE_OF_VERTEX / SIZE_OF_FLOAT);
+    spriteBundles[size] = spriteBundle;
+    loadVertex(size);
+
+    size++;
+
+    return true;
+  }
+
+  private void loadVertex(int index) {
+    Sprite sprite = spriteBundles[index].sprite;
+    Color color = spriteBundles[index].color;
+    Matrix4f transform = spriteBundles[index].transform.getTransformMatrix();
+
+    verticesBuffer.position(index * NUMBER_OF_VERTICES_PER_QUAD * (SIZE_OF_VERTEX / SIZE_OF_FLOAT));
 
     int texId = 0;
-    if (spriteBundle.sprite.texture != null) {
-      texId = textures.indexOf(texture) + 1;
+    if (sprite.texture != null) {
+      texId = textures.indexOf(sprite.texture) + 1;
 
       if (texId == 0) {
-        textures.add(texture);
+        textures.add(sprite.texture);
         texId = textures.size();
       }
     }
@@ -166,8 +185,14 @@ class SpriteRenderBatch implements RenderBatch {
      *   └────┘
      *   0    1
      */
-    int w = spriteBundle.sprite.texture.width / 2;
-    int h = spriteBundle.sprite.texture.height / 2;
+    float w = 0.5f, h = 0.5f;
+
+    if (sprite.texture != null) {
+      w = sprite.texture.width / 2f;
+      h = sprite.texture.height / 2f;
+    }
+
+    int offset = 0;
     for (int i = 0; i < NUMBER_OF_VERTICES_PER_QUAD; i++) {
 
       if (i == 0) {
@@ -181,36 +206,33 @@ class SpriteRenderBatch implements RenderBatch {
         position.y = h;
       } else {
         position.x = -w;
-        position.y = h; 
+        position.y = h;
       }
 
-      spriteBundle.transform.applyTo(position);
+      transform.transformPosition(position);
 
       // position
-      vertex[offset + 0] = position.x;
-      vertex[offset + 1] = position.y;
-      vertex[offset + 2] = position.z;
+      verticies[offset + 0] = position.x;
+      verticies[offset + 1] = position.y;
+      verticies[offset + 2] = position.z;
 
       // color
-      vertex[offset + 3] = spriteBundle.color.r;
-      vertex[offset + 4] = spriteBundle.color.g;
-      vertex[offset + 5] = spriteBundle.color.b;
-      vertex[offset + 6] = spriteBundle.color.a;
+      verticies[offset + 3] = color.r;
+      verticies[offset + 4] = color.g;
+      verticies[offset + 5] = color.b;
+      verticies[offset + 6] = color.a;
 
       // texCoord
-      vertex[offset + 7] = spriteBundle.sprite.texCoords[i].x;
-      vertex[offset + 8] = spriteBundle.sprite.texCoords[i].y;
+      verticies[offset + 7] = sprite.texCoords[i].x;
+      verticies[offset + 8] = sprite.texCoords[i].y;
 
       // texId
-      vertex[offset + 9] = texId;
+      verticies[offset + 9] = texId;
 
       offset += SIZE_OF_VERTEX / SIZE_OF_FLOAT;
     }
 
-    verticesBuffer.put(vertex);
-    size++;
-
-    return true;
+    verticesBuffer.put(verticies);
   }
 
   private final float[] matrix = new float[16];
@@ -227,10 +249,12 @@ class SpriteRenderBatch implements RenderBatch {
 
     glBindVertexArray(vaoId[0]);
 
+    for (int i = 0; i < size; i++) {
+      loadVertex(i);
+    }
     int pos = verticesBuffer.position();
     verticesBuffer.position(0);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, verticesBuffer.capacity() * SIZE_OF_FLOAT, verticesBuffer);
-    verticesBuffer.position(pos);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, pos * SIZE_OF_FLOAT, verticesBuffer);
 
     glDrawElements(GL_TRIANGLES, size * 2 * NUMBER_OF_VERTICES_PER_TRIANGLE, GL_UNSIGNED_SHORT, 0);
 

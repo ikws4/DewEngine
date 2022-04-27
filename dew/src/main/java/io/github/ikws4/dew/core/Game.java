@@ -24,7 +24,7 @@ public abstract class Game {
       .addPlugin(new GLRendererPlugin());
   }
 
-  protected void loop(double dt) {
+  protected void loop(float dt) {
     time.deltaTime = dt;
     world.run();
   }

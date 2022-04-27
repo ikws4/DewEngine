@@ -84,7 +84,7 @@ public abstract class GameActivity extends Activity {
     @Override
     public void onDrawFrame(GL10 gl) {
       long currentTime = System.nanoTime();
-      double dt = (currentTime - lastTime) / 1e9;
+      float dt = (currentTime - lastTime) / 1e9f;
       lastTime = currentTime;
 
       game.loop(dt);
