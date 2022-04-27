@@ -1,8 +1,6 @@
 package io.github.ikws4.dew.core.gl.component;
 
 import org.joml.Matrix4f;
-import org.joml.Quaterniond;
-import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
