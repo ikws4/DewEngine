@@ -45,9 +45,12 @@ public class Entity {
     return this;
   }
 
-  @SuppressWarnings("unchecked")
   public <T> T get(Class<T> componentClass) {
     int componentId = world.componentIdMap.get(componentClass);
-    return (T) world.componentPools.get(componentId).get(id);
+    Object component = world.componentPools.get(componentId).get(id);
+    if (component == null) {
+      throw new IllegalStateException("Component " + componentClass.getName() + " is not attached to entity " + id);
+    }
+    return componentClass.cast(component);
   }
 }
