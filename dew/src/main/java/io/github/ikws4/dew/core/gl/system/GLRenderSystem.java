@@ -5,7 +5,6 @@ import android.content.Context;
 import io.github.ikws4.dew.core.gl.Renderer;
 import io.github.ikws4.dew.core.gl.component.bundle.SpriteBundle;
 import io.github.ikws4.dew.core.gl.resource.Camera;
-import io.github.ikws4.dew.core.gl.resource.ClearColor;
 import io.github.ikws4.dew.ecs.Command;
 import io.github.ikws4.dew.ecs.Entity;
 import io.github.ikws4.dew.ecs.Query;

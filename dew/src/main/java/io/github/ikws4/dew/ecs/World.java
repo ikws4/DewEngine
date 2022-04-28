@@ -2,7 +2,6 @@ package io.github.ikws4.dew.ecs;
 
 import android.content.Context;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
