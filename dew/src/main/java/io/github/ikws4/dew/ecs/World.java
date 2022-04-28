@@ -103,6 +103,14 @@ public class World {
     }
   }
 
+  int getComponentId(Class<?> componentClass) {
+    Integer id = componentIdMap.get(componentClass);
+    if (id == null) {
+      throw new IllegalArgumentException("Component(" + componentClass.getName() + ") is not registerd in the world.");
+    }
+    return id;
+  }
+
   public void run() {
     switch (stage) {
       case STARTUP:

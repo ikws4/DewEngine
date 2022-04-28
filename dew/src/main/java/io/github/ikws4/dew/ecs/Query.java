@@ -26,11 +26,7 @@ public class Query implements Iterable<Entity> {
 
   public Query with(Class<?>... componentClasses) {
     for (Class<?> componentClass : componentClasses) {
-      if (!world.componentIdMap.containsKey(componentClass)) {
-        throw new IllegalArgumentException("Component not found");
-      }
-
-      int componentId = world.componentIdMap.get(componentClass);
+      int componentId = world.getComponentId(componentClass);
       componentMask.set(componentId);
     }
     return this;

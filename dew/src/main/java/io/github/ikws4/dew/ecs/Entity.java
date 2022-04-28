@@ -21,7 +21,7 @@ public class Entity {
       world.componentIdMap.put(componentClass, world.componentIdMap.size());
     }
 
-    int componentId = world.componentIdMap.get(componentClass);
+    int componentId = world.getComponentId(componentClass);
     componentMask.set(componentId);
 
     if (componentId >= world.componentPools.size()) {
@@ -41,16 +41,30 @@ public class Entity {
   }
 
   public Entity remove(Class<?> componentClass) {
-    componentMask.clear(world.componentIdMap.get(componentClass));
+    ensureHasComponent(componentClass);
+
+    componentMask.clear(world.getComponentId(componentClass));
     return this;
   }
 
-  public <T> T get(Class<T> componentClass) {
-    int componentId = world.componentIdMap.get(componentClass);
-    Object component = world.componentPools.get(componentId).get(id);
-    if (component == null) {
-      throw new IllegalStateException("Component " + componentClass.getName() + " is not attached to entity " + id);
+  private void ensureHasComponent(Class<?> componentClass) {
+    boolean has = componentMask.get(world.getComponentId(componentClass));
+    if (!has) {
+      throw new IllegalArgumentException(
+          toString() + " does not have Component(" + componentClass.getName() + ").");
     }
+  }
+
+  public <T> T get(Class<T> componentClass) {
+    ensureHasComponent(componentClass);
+
+    int componentId = world.getComponentId(componentClass);
+    Object component = world.componentPools.get(componentId).get(id);
     return componentClass.cast(component);
+  }
+
+  @Override
+  public String toString() {
+    return "Entity(" + id + ")";
   }
 }
