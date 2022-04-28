@@ -16,7 +16,7 @@ import io.github.ikws4.example.game.component.Velocity;
 /**
  * Created by zhiping on 04/27/2022.
  */
-public class PikachuMovementSystem implements System {
+public class PikachuMovementSystem extends System {
 
   @Override
   public void run(Context context, Command command, Query query, Res res) {

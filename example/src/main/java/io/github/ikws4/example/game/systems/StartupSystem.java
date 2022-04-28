@@ -21,7 +21,7 @@ import io.github.ikws4.example.game.component.Velocity;
 /**
  * Created by zhiping on 04/26/2022.
  */
-public class StartupSystem implements System {
+public class StartupSystem extends System {
 
   @Override
   public void run(Context context, Command command, Query query, Res res) {

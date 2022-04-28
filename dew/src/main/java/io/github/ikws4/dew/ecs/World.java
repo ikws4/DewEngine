@@ -2,6 +2,7 @@ package io.github.ikws4.dew.ecs;
 
 import android.content.Context;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -46,7 +47,7 @@ public class World {
 
     this.stage = Stage.STARTUP;
   }
-  
+
   public World insertResource(Object resource) {
     resourceMap.put(resource.getClass(), resource);
     return this;
@@ -60,10 +61,10 @@ public class World {
   /**
    * @throws IllegalArgumentException if the system is already added
    */
-  public World addStartupSystem(System system) {
+  public World addStartupSystem(Class<? extends System> systemClass) {
     int i = 0;
     for (i = 0; i < startupSystems.size(); i++) {
-      if (startupSystems.get(i).getClass() == system.getClass()) {
+      if (startupSystems.get(i).getClass() == systemClass) {
         break;
       }
     }
@@ -72,17 +73,17 @@ public class World {
       throw new IllegalArgumentException("System already added.");
     }
 
-    startupSystems.add(system);
+    startupSystems.add(newSystem(systemClass));
     return this;
   }
 
   /**
    * @throws IllegalArgumentException if the system is already added
    */
-  public World addSystem(System system) {
+  public World addSystem(Class<? extends System> systemClass) {
     int i = 0;
     for (i = 0; i < systems.size(); i++) {
-      if (systems.get(i).getClass() == system.getClass()) {
+      if (systems.get(i).getClass() == systemClass) {
         break;
       }
     }
@@ -91,8 +92,16 @@ public class World {
       throw new IllegalArgumentException("System already added.");
     }
 
-    systems.add(system);
+    systems.add(newSystem(systemClass));
     return this;
+  }
+
+  private System newSystem(Class<? extends System> systemClass) {
+    try {
+      return systemClass.getDeclaredConstructor().newInstance();
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to instantiate system.", e);
+    }
   }
 
   public void run() {
@@ -114,7 +123,6 @@ public class World {
   }
 
   static enum Stage {
-    STARTUP,
-    RUNNING
+    STARTUP, RUNNING
   }
 }

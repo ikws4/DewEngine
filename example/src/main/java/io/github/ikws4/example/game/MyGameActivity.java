@@ -26,8 +26,8 @@ public class MyGameActivity extends GameActivity {
     @Override
     public void setup() {
       super.setup();
-      world.addStartupSystem(new StartupSystem())
-        .addSystem(new PikachuMovementSystem());
+      world.addStartupSystem(StartupSystem.class)
+          .addSystem(PikachuMovementSystem.class);
     }
   }
 }

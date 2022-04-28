@@ -17,7 +17,7 @@ import static android.opengl.GLES30.*;
 /**
  * Created by zhiping on 04/26/2022.
  */
-public class GLRenderSystem implements System {
+public class GLRenderSystem extends System {
   @Override
   public void run(Context context, Command command, Query query, Res res) {
     Renderer renderer = res.get(Renderer.class);

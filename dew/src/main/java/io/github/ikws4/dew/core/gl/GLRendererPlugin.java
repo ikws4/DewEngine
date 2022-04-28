@@ -11,7 +11,7 @@ public class GLRendererPlugin implements Plugin {
   @Override
   public void build(World world) {
     world.insertResource(new ClearColor(0xFFFFFFFF))
-        .addStartupSystem(new GLStartupSystem())
-        .addSystem(new GLRenderSystem());
+        .addStartupSystem(GLStartupSystem.class)
+        .addSystem(GLRenderSystem.class);
   }
 }
