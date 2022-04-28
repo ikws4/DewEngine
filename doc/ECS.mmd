@@ -1,0 +1,69 @@
+classDiagram
+    class Component
+
+    class World
+        World : +World(Context context)
+        World : +insertResource(Object resource) World
+        World : +addPlugin(Plugin plugin) World
+        World : +addStartupSystem(Class~? extends System~) World
+        World : +addSystem(Class~? extends System~) World
+        World : +run() void
+
+    class Command
+        Command : ~World world
+
+        Command : +insertResource(Object resource) Command
+        Command : +createEntity() Entity
+        Command : +removeEntity(Entity entity) void
+
+    class Entity
+        Entity : -int id
+        Entity : ~World world
+        Entity : ~boolean removed
+        Entity : ~BitSet componentMask
+        
+        Entity : +insert(Object component) Entity
+        Entity : +insertBundle(Bundle bundle) Entity
+        Entity : +remove(Class~? extends Component~ coomponent) Entity
+        Entity : +get(Class~T~ coomponent) T
+
+    class System
+        <<interface>> System
+        System : run(Context context, Command command, Query query, Res res)
+
+    class Query
+        Query : ~World world
+        Query : with(Class~?~... components) Query
+
+    class ComponentPool
+        ComponentPool : +get(int entityId) Object
+        ComponentPool : +set(int entityId, Object component) void
+
+    class Stage 
+        <<enum>> Stage
+        Stage : STARTUP
+        Stage : RUNNING
+
+    class Res
+        Res : -World world
+        Res : +get(Class~T~ res) T
+
+    class Bundle
+        <<abstract>> Bundle
+        Bundle : +unpack() Object[]
+
+    class Plugin
+        <<interface>> Plugin
+        Plugin : +build(World world) void
+
+    World --* System
+    World --* Entity
+    World --* ComponentPool
+    World --> Stage
+    World --* Plugin
+    System --> Command
+    System --> Query
+    System --> Res
+    Bundle --* Component
+    ComponentPool --* Component
+    ComponentPool --* Bundle
