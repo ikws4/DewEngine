@@ -59,7 +59,7 @@ public abstract class GameActivity extends Activity {
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    glRenderer.onDestory();
+    glRenderer.onDestroy();
   }
 
   static class GLRenderer implements GLSurfaceView.Renderer {
@@ -99,7 +99,7 @@ public abstract class GameActivity extends Activity {
       lastTime = System.nanoTime();
     }
 
-    public void onDestory() {
+    public void onDestroy() {
       game.dispose();
     }
   }

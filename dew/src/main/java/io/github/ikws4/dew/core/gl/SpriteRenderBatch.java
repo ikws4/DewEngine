@@ -2,7 +2,6 @@ package io.github.ikws4.dew.core.gl;
 
 import io.github.ikws4.dew.core.gl.component.Color;
 import io.github.ikws4.dew.core.gl.component.Sprite;
-import io.github.ikws4.dew.core.gl.component.Transform;
 import io.github.ikws4.dew.core.gl.component.bundle.SpriteBundle;
 import static android.opengl.GLES30.*;
 import java.nio.ByteBuffer;
@@ -10,7 +9,6 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -141,7 +139,7 @@ class SpriteRenderBatch implements RenderBatch {
     return buffer;
   }
 
-  private final float[] verticies = new float[NUMBER_OF_VERTICES_PER_QUAD * SIZE_OF_VERTEX / SIZE_OF_FLOAT];
+  private final float[] vertices = new float[NUMBER_OF_VERTICES_PER_QUAD * SIZE_OF_VERTEX / SIZE_OF_FLOAT];
   private final Vector3f position = new Vector3f();
 
   public boolean add(SpriteBundle spriteBundle) {
@@ -212,27 +210,27 @@ class SpriteRenderBatch implements RenderBatch {
       transform.transformPosition(position);
 
       // position
-      verticies[offset + 0] = position.x;
-      verticies[offset + 1] = position.y;
-      verticies[offset + 2] = position.z;
+      vertices[offset + 0] = position.x;
+      vertices[offset + 1] = position.y;
+      vertices[offset + 2] = position.z;
 
       // color
-      verticies[offset + 3] = color.r;
-      verticies[offset + 4] = color.g;
-      verticies[offset + 5] = color.b;
-      verticies[offset + 6] = color.a;
+      vertices[offset + 3] = color.r;
+      vertices[offset + 4] = color.g;
+      vertices[offset + 5] = color.b;
+      vertices[offset + 6] = color.a;
 
       // texCoord
-      verticies[offset + 7] = sprite.texCoords[i].x;
-      verticies[offset + 8] = sprite.texCoords[i].y;
+      vertices[offset + 7] = sprite.texCoords[i].x;
+      vertices[offset + 8] = sprite.texCoords[i].y;
 
       // texId
-      verticies[offset + 9] = texId;
+      vertices[offset + 9] = texId;
 
       offset += SIZE_OF_VERTEX / SIZE_OF_FLOAT;
     }
 
-    verticesBuffer.put(verticies);
+    verticesBuffer.put(vertices);
   }
 
   private final float[] matrix = new float[16];

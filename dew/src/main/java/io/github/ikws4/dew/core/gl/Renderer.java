@@ -41,8 +41,8 @@ public class Renderer {
   }
   
   public void render(Matrix4f mvp) {
-    for (RenderBatch renderable : batches) {
-      renderable.render(mvp);
+    for (RenderBatch batch : batches) {
+      batch.render(mvp);
     }
   }
 }
