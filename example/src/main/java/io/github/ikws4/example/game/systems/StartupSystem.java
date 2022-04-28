@@ -5,12 +5,12 @@ import android.content.Context;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import io.github.ikws4.dew.core.gl.component.Color;
-import io.github.ikws4.dew.core.gl.component.Sprite;
-import io.github.ikws4.dew.core.gl.component.Transform;
-import io.github.ikws4.dew.core.gl.component.bundle.SpriteBundle;
-import io.github.ikws4.dew.core.resource.ViewPort;
-import io.github.ikws4.dew.core.util.AssetsManager;
+import io.github.ikws4.dew.glrenderer.component.Color;
+import io.github.ikws4.dew.glrenderer.component.Sprite;
+import io.github.ikws4.dew.glrenderer.component.Transform;
+import io.github.ikws4.dew.glrenderer.component.bundle.SpriteBundle;
+import io.github.ikws4.dew.base.resource.ViewPort;
+import io.github.ikws4.dew.base.util.AssetsManager;
 import io.github.ikws4.dew.ecs.Command;
 import io.github.ikws4.dew.ecs.Query;
 import io.github.ikws4.dew.ecs.Res;

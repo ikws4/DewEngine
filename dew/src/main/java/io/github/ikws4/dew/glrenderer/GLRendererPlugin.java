@@ -1,8 +1,8 @@
-package io.github.ikws4.dew.core.gl;
+package io.github.ikws4.dew.glrenderer;
 
-import io.github.ikws4.dew.core.gl.resource.ClearColor;
-import io.github.ikws4.dew.core.gl.system.GLRenderSystem;
-import io.github.ikws4.dew.core.gl.system.GLStartupSystem;
+import io.github.ikws4.dew.glrenderer.resource.ClearColor;
+import io.github.ikws4.dew.glrenderer.system.GLRenderSystem;
+import io.github.ikws4.dew.glrenderer.system.GLStartupSystem;
 import io.github.ikws4.dew.ecs.Plugin;
 import io.github.ikws4.dew.ecs.World;
 

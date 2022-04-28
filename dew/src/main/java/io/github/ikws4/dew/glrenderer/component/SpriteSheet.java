@@ -1,6 +1,6 @@
-package io.github.ikws4.dew.core.gl.component;
+package io.github.ikws4.dew.glrenderer.component;
 
-import io.github.ikws4.dew.core.gl.Texture;
+import io.github.ikws4.dew.glrenderer.Texture;
 
 public class SpriteSheet {
   public final Texture texture;

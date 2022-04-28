@@ -1,4 +1,4 @@
-package io.github.ikws4.dew.core;
+package io.github.ikws4.dew.base;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

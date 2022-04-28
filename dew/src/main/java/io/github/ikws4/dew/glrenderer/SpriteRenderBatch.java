@@ -1,8 +1,8 @@
-package io.github.ikws4.dew.core.gl;
+package io.github.ikws4.dew.glrenderer;
 
-import io.github.ikws4.dew.core.gl.component.Color;
-import io.github.ikws4.dew.core.gl.component.Sprite;
-import io.github.ikws4.dew.core.gl.component.bundle.SpriteBundle;
+import io.github.ikws4.dew.glrenderer.component.Color;
+import io.github.ikws4.dew.glrenderer.component.Sprite;
+import io.github.ikws4.dew.glrenderer.component.bundle.SpriteBundle;
 import static android.opengl.GLES30.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

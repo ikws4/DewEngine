@@ -1,4 +1,4 @@
-package io.github.ikws4.dew.core.resource;
+package io.github.ikws4.dew.base.resource;
 
 import static android.opengl.GLES20.glViewport;
 

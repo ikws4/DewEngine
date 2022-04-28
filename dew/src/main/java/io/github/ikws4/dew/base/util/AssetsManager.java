@@ -1,4 +1,4 @@
-package io.github.ikws4.dew.core.util;
+package io.github.ikws4.dew.base.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,11 +8,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import io.github.ikws4.dew.core.gl.Texture;
+import io.github.ikws4.dew.glrenderer.Texture;
 
 public class AssetsManager {
-  private static Map<String, Texture> textureCache = new HashMap<>();
-  private static Map<String, String> textCache = new HashMap<>();
+  private static final Map<String, Texture> textureCache = new HashMap<>();
+  private static final Map<String, String> textCache = new HashMap<>();
 
   public static Texture getTexture(Context context, String filePath) {
     if (textureCache.containsKey(filePath)) return textureCache.get(filePath);

@@ -1,4 +1,4 @@
-package io.github.ikws4.dew.core.gl.resource;
+package io.github.ikws4.dew.glrenderer.resource;
 
 import org.joml.Matrix4f;
 

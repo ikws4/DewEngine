@@ -1,4 +1,4 @@
-package io.github.ikws4.dew.core.gl;
+package io.github.ikws4.dew.glrenderer;
 
 import static android.opengl.GLES30.*;
 import java.util.HashMap;

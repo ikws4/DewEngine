@@ -1,12 +1,12 @@
-package io.github.ikws4.dew.core.gl.system;
+package io.github.ikws4.dew.glrenderer.system;
 
 import android.content.Context;
-import io.github.ikws4.dew.core.gl.Renderer;
-import io.github.ikws4.dew.core.gl.Shader;
-import io.github.ikws4.dew.core.gl.resource.Camera;
-import io.github.ikws4.dew.core.gl.resource.ClearColor;
-import io.github.ikws4.dew.core.resource.ViewPort;
-import io.github.ikws4.dew.core.util.AssetsManager;
+import io.github.ikws4.dew.glrenderer.Renderer;
+import io.github.ikws4.dew.glrenderer.Shader;
+import io.github.ikws4.dew.glrenderer.resource.Camera;
+import io.github.ikws4.dew.glrenderer.resource.ClearColor;
+import io.github.ikws4.dew.base.resource.ViewPort;
+import io.github.ikws4.dew.base.util.AssetsManager;
 import io.github.ikws4.dew.ecs.Command;
 import io.github.ikws4.dew.ecs.Query;
 import io.github.ikws4.dew.ecs.Res;

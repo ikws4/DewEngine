@@ -1,8 +1,8 @@
-package io.github.ikws4.dew.core.gl.component.bundle;
+package io.github.ikws4.dew.glrenderer.component.bundle;
 
-import io.github.ikws4.dew.core.gl.component.Color;
-import io.github.ikws4.dew.core.gl.component.Sprite;
-import io.github.ikws4.dew.core.gl.component.Transform;
+import io.github.ikws4.dew.glrenderer.component.Color;
+import io.github.ikws4.dew.glrenderer.component.Sprite;
+import io.github.ikws4.dew.glrenderer.component.Transform;
 import io.github.ikws4.dew.ecs.Bundle;
 
 public class SpriteBundle extends Bundle {

@@ -2,8 +2,8 @@ package io.github.ikws4.example.game;
 
 import android.content.Context;
 
-import io.github.ikws4.dew.core.Game;
-import io.github.ikws4.dew.core.GameActivity;
+import io.github.ikws4.dew.base.Game;
+import io.github.ikws4.dew.base.GameActivity;
 import io.github.ikws4.example.game.systems.PikachuMovementSystem;
 import io.github.ikws4.example.game.systems.StartupSystem;
 

@@ -1,4 +1,4 @@
-package io.github.ikws4.dew.core.gl.component;
+package io.github.ikws4.dew.glrenderer.component;
 
 import org.joml.Matrix4f;
 import org.joml.Vector2f;

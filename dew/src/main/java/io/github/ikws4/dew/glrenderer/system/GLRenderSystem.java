@@ -1,10 +1,10 @@
-package io.github.ikws4.dew.core.gl.system;
+package io.github.ikws4.dew.glrenderer.system;
 
 import android.content.Context;
 
-import io.github.ikws4.dew.core.gl.Renderer;
-import io.github.ikws4.dew.core.gl.component.bundle.SpriteBundle;
-import io.github.ikws4.dew.core.gl.resource.Camera;
+import io.github.ikws4.dew.glrenderer.Renderer;
+import io.github.ikws4.dew.glrenderer.component.bundle.SpriteBundle;
+import io.github.ikws4.dew.glrenderer.resource.Camera;
 import io.github.ikws4.dew.ecs.Command;
 import io.github.ikws4.dew.ecs.Entity;
 import io.github.ikws4.dew.ecs.Query;

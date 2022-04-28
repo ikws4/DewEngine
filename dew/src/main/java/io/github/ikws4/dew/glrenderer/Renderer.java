@@ -1,4 +1,4 @@
-package io.github.ikws4.dew.core.gl;
+package io.github.ikws4.dew.glrenderer;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.joml.Matrix4f;
-import io.github.ikws4.dew.core.gl.component.bundle.SpriteBundle;
+import io.github.ikws4.dew.glrenderer.component.bundle.SpriteBundle;
 
 /**
  * Created by zhiping on 04/26/2022.

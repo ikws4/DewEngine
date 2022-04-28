@@ -1,4 +1,4 @@
-package io.github.ikws4.dew.core.gl;
+package io.github.ikws4.dew.glrenderer;
 
 import android.graphics.Bitmap;
 import android.opengl.GLUtils;
