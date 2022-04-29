@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Query implements Iterable<Entity> {
-  World world;
+  private World world;
   private final List<Entity> result;
   private final EntityIterator iterator;
   private final BitSet componentMask;

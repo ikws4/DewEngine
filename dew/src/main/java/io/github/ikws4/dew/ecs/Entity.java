@@ -5,7 +5,7 @@ import java.util.BitSet;
 public class Entity {
   private final int id;
 
-  World world;
+  private World world;
   boolean removed;
   BitSet componentMask;
 

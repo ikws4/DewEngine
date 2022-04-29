@@ -1,7 +1,7 @@
 package io.github.ikws4.dew.ecs;
 
 public class Command {
-  World world;
+  private World world;
 
   Command(World world) {
     this.world = world;
