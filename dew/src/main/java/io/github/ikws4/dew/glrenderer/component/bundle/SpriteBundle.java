@@ -22,4 +22,33 @@ public class SpriteBundle extends Bundle {
   public Object[] unpack() {
     return new Object[] {sprite, color, transform};
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((color == null) ? 0 : color.hashCode());
+    result = prime * result + ((sprite == null) ? 0 : sprite.hashCode());
+    result = prime * result + ((transform == null) ? 0 : transform.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    SpriteBundle other = (SpriteBundle) obj;
+    if (color == null) {
+      if (other.color != null) return false;
+    } else if (!color.equals(other.color)) return false;
+    if (sprite == null) {
+      if (other.sprite != null) return false;
+    } else if (!sprite.equals(other.sprite)) return false;
+    if (transform == null) {
+      if (other.transform != null) return false;
+    } else if (!transform.equals(other.transform)) return false;
+    return true;
+  }
+
 }

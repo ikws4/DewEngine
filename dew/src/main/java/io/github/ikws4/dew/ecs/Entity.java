@@ -36,7 +36,6 @@ public class Entity {
     for (Object component : bundle.unpack()) {
       insert(component);
     }
-    insert(bundle);
     return this;
   }
 
