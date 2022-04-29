@@ -2,6 +2,7 @@ package io.github.ikws4.example.game.systems;
 
 import android.content.Context;
 
+import io.github.ikws4.dew.glrenderer.component.Sprite;
 import io.github.ikws4.dew.glrenderer.component.Transform;
 import io.github.ikws4.dew.base.resource.Time;
 import io.github.ikws4.dew.base.resource.ViewPort;
@@ -23,9 +24,9 @@ public class PikachuMovementSystem extends System {
     Time time = res.get(Time.class);
     ViewPort viewPort = res.get(ViewPort.class);
 
-    for (Entity entity : query.with(Pikachu.class)) {
-      Transform transform = entity.get(Transform.class);
-      Velocity velocity = entity.get(Velocity.class);
+    for (Query.Result r : query.with(Transform.class, Velocity.class, Pikachu.class)) {
+      Transform transform = r.get(Transform.class);
+      Velocity velocity = r.get(Velocity.class);
 
       float hw = viewPort.width / 2f;
       float hh = viewPort.height / 2f;

@@ -6,7 +6,6 @@ import io.github.ikws4.dew.glrenderer.Renderer;
 import io.github.ikws4.dew.glrenderer.component.bundle.SpriteBundle;
 import io.github.ikws4.dew.glrenderer.resource.Camera;
 import io.github.ikws4.dew.ecs.Command;
-import io.github.ikws4.dew.ecs.Entity;
 import io.github.ikws4.dew.ecs.Query;
 import io.github.ikws4.dew.ecs.Res;
 import io.github.ikws4.dew.ecs.System;
@@ -22,8 +21,8 @@ public class GLRenderSystem extends System {
     Renderer renderer = res.get(Renderer.class);
     Camera camera = res.get(Camera.class);
 
-    for (Entity entity : query.with(SpriteBundle.class)) {
-      renderer.add(entity.get(SpriteBundle.class));
+    for (Query.Result r : query.with(SpriteBundle.class)) {
+      renderer.add(r.get(SpriteBundle.class));
     }
 
     glClear(GL_COLOR_BUFFER_BIT);
